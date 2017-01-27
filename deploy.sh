@@ -1,7 +1,7 @@
 #!/bin/bash
 export LC_ALL=C
 apt-get update
-apt-get install -y python-pip python-dev postgresql-9.5 postgresql-server-dev-9.5
+apt-get install -y python-pip python-dev postgresql-9.5 postgresql-server-dev-9.5 httperf
 #pip install Flask psycopg2 Flask-SQLAlchemy
 pip install -r requirements.txt
 

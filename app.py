@@ -19,23 +19,25 @@ def index():
 
         registro = Registro(texto='textinho')
         print registro
+        ti = time.time()
         db.session.add(registro)
         db.session.commit()
+        tf = time.time() - ti
         registro = Registro.query.filter_by(texto='textinho').first()
         if registro:
-            return registro.texto
+            return str(tf)
 
 @app.route('/read', methods=['GET', 'POST'])
 def read():
     if request.method == 'GET':
+        import time
+        ti = time.time()
         registro = Registro.query.filter_by(texto='textinho').first()
+        tf = time.time() - ti
         if registro:
-            print registro
-            return registro.texto
+            return str(tf)
         return "EMPTY"
 
 if __name__ == '__main__':
     db.create_all()
     app.run(host='0.0.0.0')
-
-
