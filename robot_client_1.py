@@ -56,12 +56,6 @@ class TesterADSD(object):
 
         return final_command
 
-    # saves the data
-    def write_data(self, rate, duration, iteration, command, bd_duration, cpu_usage):
-        fd = open(self.output, 'a')
-        output = csv.writer(fd, delimiter=' ')
-        output.writerow([rate, duration, iteration, command, bd_duration, cpu_usage])
-        fd.close()
 
 if __name__ == '__main__':
     tester = TesterADSD(10, 1)

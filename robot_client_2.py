@@ -30,9 +30,9 @@ class TesterADSD(object):
             raise Exception("Target not set.")
         command = self.build_command()
         if(self.repetitions == 10):
-            self.paced_shooter(self.repetitions, command, 6)
+            self.paced_shooter(self.repetitions, command, 6) #10 requests per minute
         else:
-            self.paced_shooter(self.repetitions, command, 0.24)
+            self.paced_shooter(self.repetitions, command, 0.24) #250 requests per minute
         print "done"
 
     def paced_shooter(self, repetitions, command, wait_time):
