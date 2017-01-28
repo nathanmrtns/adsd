@@ -30,20 +30,20 @@ class TesterADSD(object):
             raise Exception("Target not set.")
         command = self.build_command()
         for iteration in range(self.repetitions):
-            times = self.shoot(command)
-            print times
-            time_elapsed = times[0]
-            bd_time = times[1]
+            response = self.shoot(command)
+            time_elapsed = response[0]
+            bd_time = response[1].split(" ")[0]
+            cpu_usage = response[1].split(" ")[1]
             if(command.split(' ')[6] == "--uri=/write_and_read"):
-                self.write_data(self.rate, time_elapsed, iteration, 'write', bd_time)
-            else: self.write_data(self.rate, time_elapsed, iteration, 'read', bd_time)
+                self.write_data(self.rate, time_elapsed, iteration, 'write', bd_time, cpu_usage)
+            else: self.write_data(self.rate, time_elapsed, iteration, 'read', bd_time, cpu_usage)
 
     def shoot(self, command):
         #print(command)
         start_time = time.time()
         p = check_output(command.split(' '))
-        bd_time = p.split("\n")[1].split(":")[1]
         time_elapsed = time.time() - start_time
+        bd_time = p.split("\n")[1].split(":")[1]
         return [time_elapsed, bd_time]
 
     def build_command(self):
@@ -63,10 +63,10 @@ class TesterADSD(object):
         return final_command
 
     # salva os dados no arquivo definido
-    def write_data(self, rate, duration, iteration, command, bd_duration):
+    def write_data(self, rate, duration, iteration, command, bd_duration, cpu_usage):
         fd = open(self.output, 'a')
         output = csv.writer(fd, delimiter=' ')
-        output.writerow([rate, duration, iteration, command, bd_duration])
+        output.writerow([rate, duration, iteration, command, bd_duration, cpu_usage])
         fd.close()
 
 if __name__ == '__main__':
