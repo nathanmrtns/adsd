@@ -4,14 +4,14 @@ from flask.ext.sqlalchemy import SQLAlchemy
 import psutil
 
 app = Flask(__name__)
+#mysql url - mysql://[user]:[user password]@[localhost]/[database name]
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://usuario:root00@localhost/db'
 db = SQLAlchemy(app)
 
 class Registro(db.Model):
     __tablename__ = "registro"
     id = db.Column('id', db.Integer, primary_key=True)
-    texto = db.Column('texto', db.Unicode)
-
+    texto = db.Column('texto', db.String(50))
 
 @app.route('/write_and_read', methods=['GET', 'POST'])
 def index():
@@ -37,6 +37,7 @@ def read():
         registro = Registro.query.filter_by(texto='textinho').first()
         tf = time.time() - ti
         cpu_usage = psutil.cpu_percent(interval=0.1)
+        #print cpu_usage
         if registro:
             return str(tf) + " " + str(cpu_usage)
         return "EMPTY"

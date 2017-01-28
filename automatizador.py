@@ -39,7 +39,6 @@ class TesterADSD(object):
             else: self.write_data(self.rate, time_elapsed, iteration, 'read', bd_time, cpu_usage)
 
     def shoot(self, command):
-        #print(command)
         start_time = time.time()
         p = check_output(command.split(' '))
         time_elapsed = time.time() - start_time
@@ -72,5 +71,5 @@ class TesterADSD(object):
 if __name__ == '__main__':
     tester = TesterADSD(1, 10, output='output.csv')
     tester.set_target('127.0.0.1')
-    tester.set_mode(0) # 0 = leitura | 1 = escrita
+    tester.set_mode(1) # 0 = leitura | 1 = escrita
     tester.start()
