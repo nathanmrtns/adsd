@@ -16,7 +16,7 @@ Server and Robot 1 Behavior:
  - Server writes the stats on file.
  - Robot used to set the rate | number of requests sent to server
 
- Server and Robot 2 Behavior:
+Server and Robot 2 Behavior:
  - Server just receives and respond the requests
  - This robot's behavior depends of the number of iterations, there are 2 options:
      - Requests are sent at 10 requests/minute
