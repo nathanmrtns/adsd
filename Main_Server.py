@@ -28,7 +28,6 @@ def index():
         cpu_usage = psutil.cpu_percent(interval=0.1)
         if registro:
             server_resp_timef = time.time() - server_resp_timei
-            #self.write_data("write", server_resp_timef,bd_timef,cpu_usage)
             return str(server_resp_timef) + " " + str(bd_timef) + " " + str(cpu_usage)
 
 @app.route('/read', methods=['GET', 'POST'])
@@ -42,7 +41,6 @@ def read():
         #print cpu_usage
         if registro:
             server_resp_timef = time.time() - server_resp_timei
-            #write_data("write", server_resp_timef,bd_timef,cpu_usage)
             return str(server_resp_timef) + " " + str(bd_timef) + " " + str(cpu_usage)
         return "EMPTY"
 
