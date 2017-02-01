@@ -25,11 +25,12 @@ class TesterADSD(object):
     def start(self):
         if not self.url:
             raise Exception("Target not set.")
+        total_test_timei = time.time()
         if(self.requests == 10):
             self.paced_shooter(self.url, 1, self.requests, self.mode, 6) #10 requests per minute
         else:
             self.paced_shooter(self.url, 1, self.requests, self.mode, 0.24) #250 requests per minute
-        print "done"
+        print "Done!" + "Total test time: " + str(time.time() - total_test_timei) + "s"
 
     def paced_shooter(self, url, observation_time, requests, command, wait_time):
         #observation_time is in minutes
@@ -70,5 +71,5 @@ class TesterADSD(object):
 if __name__ == '__main__':
     tester = TesterADSD(1, 10, output='output.csv')
     tester.set_target('127.0.0.1:5000')
-    tester.set_mode(1) # 0 = leitura | 1 = escrita
+    tester.set_mode(0) # 0 = leitura | 1 = escrita
     tester.start()
