@@ -27,9 +27,9 @@ class TesterADSD(object):
             raise Exception("Target not set.")
         total_test_timei = time.time()
         if(self.requests == 10):
-            self.paced_shooter(self.url, 1, self.requests, self.mode, 6) #10 requests per minute
+            self.paced_shooter(self.url, 5, self.requests, self.mode, 6) #10 requests per minute
         else:
-            self.paced_shooter(self.url, 1, self.requests, self.mode, 0.24) #250 requests per minute
+            self.paced_shooter(self.url, 5, self.requests, self.mode, 0.24) #250 requests per minute
         print "Done!" + "Total test time: " + str(time.time() - total_test_timei) + "s"
 
     def paced_shooter(self, url, observation_time, requests, command, wait_time):
@@ -63,13 +63,28 @@ class TesterADSD(object):
 
     # saves the data
     def write_data(self, command, total_time, server_response, bd_response, cpu_usage):
-        fd = open(self.output, 'a')
-        output = csv.writer(fd, delimiter=' ')
+        fd = open(self.output, 'a') #a
+        output = csv.writer(fd, delimiter=' ', lineterminator="\n")
         output.writerow([command, total_time, server_response, bd_response, cpu_usage])
         fd.close()
 
 if __name__ == '__main__':
-    tester = TesterADSD(1, 10, output='output.csv')
+    tester = TesterADSD(1, 10, output='collected_data/Windows_10req_msql_write.csv')
+    tester.set_target('127.0.0.1:5000')
+    tester.set_mode(1) # 0 = leitura | 1 = escrita
+    tester.start()
+
+    tester = TesterADSD(1, 10, output='collected_data/Windows_10req_msql_read.csv')
     tester.set_target('127.0.0.1:5000')
     tester.set_mode(0) # 0 = leitura | 1 = escrita
+    tester.start()
+
+    tester = TesterADSD(1, 250, output='collected_data/Windows_250req_msql_read.csv')
+    tester.set_target('127.0.0.1:5000')
+    tester.set_mode(0) # 0 = leitura | 1 = escrita
+    tester.start()
+
+    tester = TesterADSD(1, 250, output='collected_data/Windows_250req_msql_write.csv')
+    tester.set_target('127.0.0.1:5000')
+    tester.set_mode(1) # 0 = leitura | 1 = escrita
     tester.start()

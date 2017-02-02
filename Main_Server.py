@@ -6,8 +6,10 @@ import time
 import csv
 
 app = Flask(__name__)
+#'postgresql://usuario:root00@localhost/db'
+#mysql://usuario:root00@localhost/db
 #mysql url - mysql://[user]:[user password]@[localhost]/[database name]
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://usuario:root00@localhost/db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://usuario:root00@localhost/db'
 db = SQLAlchemy(app)
 
 class Registro(db.Model):
