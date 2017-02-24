@@ -1,0 +1,275 @@
+> options(digits = 19)
+> all_data <- rbind(Linux_10req_msql_read,Linux_10req_msql_write,Linux_10req_psql_read,Linux_10req_psql_write,Linux_250req_msql_read,Linux_250req_msql_write,Linux_250req_psql_read,Linux_250req_psql_write,Windows_10req_msql_write,Windows_10req_msql_read,Windows_10req_psql_read,Windows_10req_psql_write,Windows_250req_msql_read,Windows_250req_msql_write,Windows_250req_psql_write,Windows_250req_psql_read)
+> colnames(all_data)[1] <- "so"
+> colnames(all_data)[2] <- "req"
+> colnames(all_data)[3] <- "database"
+> colnames(all_data)[4] <- "type"
+> colnames(all_data)[5] <- "total_time"
+> colnames(all_data)[6] <- "server_response"
+> colnames(all_data)[7] <- "db_response"
+> colnames(all_data)[8] <- "cpu_usage"
+> write.csv(all_data,file = "test.csv")
+> t.test(server_response ~ database, data = all_data)
+
+	Welch Two Sample t-test
+
+data:  server_response by database
+t = 31.59328232017500326, df = 7145.65222761149198, p-value <
+2.2204460492503e-16
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ 0.02682957060288407650 0.03037925676437704461
+sample estimates:
+   mean in group mysql mean in group postgres
+ 0.1471168513481459494  0.1185124376645153854
+
+> t.test(db_response ~ database, data = all_data)
+
+	Welch Two Sample t-test
+
+data:  db_response by database
+t = 32.03649359305252631, df = 7109.159197986787149, p-value <
+2.2204460492503e-16
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ 0.02670550124327874739 0.03018670835995647395
+sample estimates:
+   mean in group mysql mean in group postgres
+0.04547315978086811927 0.01702705497925050687
+
+ > t.test(total_time ~ so, data = all_data)
+
+	Welch Two Sample t-test
+
+data:  total_time by so
+t = -2.523488449443127113, df = 7791.429477695356582, p-value =
+0.01163941040903728
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -0.0042784406027727038199 -0.0005374294621827819217
+sample estimates:
+  mean in group linux mean in group windows
+0.1341676414929903471 0.1365755765254680898
+
+ > t.test(cpu_usage ~ so, data = all_data)
+
+	Welch Two Sample t-test
+
+data:  cpu_usage by so
+t = -58.47831144632645106, df = 5249.867852884206513, p-value <
+2.2204460492503e-16
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -9.459127941092948078 -8.845487443522435100
+sample estimates:
+  mean in group linux mean in group windows
+0.3886730769230768989 9.5409807692307690985
+
+> req10 <- rbind(Linux_10req_msql_read,Linux_10req_msql_write,Linux_10req_psql_read,Linux_10req_psql_write,Windows_10req_msql_write,Windows_10req_msql_read,Windows_10req_psql_read,Windows_10req_psql_write)
+> View(req10)
+> colnames(req10)[1] <- "so"
+> colnames(req10)[2] <- "req"
+> colnames(req10)[3] <- "database"
+> colnames(req10)[4] <- "type"
+> colnames(req10)[5] <- "total_time"
+> colnames(req10)[6] <- "server_response"
+> colnames(req10)[7] <- "db_response"
+> colnames(req10)[8] <- "cpu_usage"
+> t.test(cpu_usage ~ so, data = req10)
+
+	Welch Two Sample t-test
+
+data:  cpu_usage by so
+t = -8.891753551931032007, df =
+210.6436805489994697, p-value =
+2.74607242095041e-16
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -6.786536076880761215 -4.323463923119237329
+sample estimates:
+  mean in group linux mean in group windows
+0.7644999999999999574 6.3194999999999996732
+
+>
+> t.test(db_response ~ database, data = req10)
+
+	Welch Two Sample t-test
+
+data:  db_response by database
+t = 5.953853605049914677, df =
+324.0719182119070751, p-value =
+6.807933002412607e-09
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ 0.02155197616607292671 0.04282326225249747514
+sample estimates:
+   mean in group mysql mean in group postgres
+0.05260055780410329701 0.02041293859481809955
+
+> req250 <- rbind(Linux_250req_msql_read,Linux_250req_msql_write,Linux_250req_psql_read,Linux_250req_psql_write,Windows_250req_msql_read,Windows_250req_msql_write,Windows_250req_psql_write,Windows_250req_psql_read)
+
+> linux_data <- rbind(Linux_10req_msql_read,Linux_10req_msql_write,Linux_10req_psql_read,Linux_10req_psql_write,Linux_250req_msql_read,Linux_250req_msql_write,Linux_250req_psql_read,Linux_250req_psql_write)
+> windows_data <- rbind(Windows_10req_msql_write,Windows_10req_msql_read,Windows_10req_psql_read,Windows_10req_psql_write,Windows_250req_msql_read,Windows_250req_msql_write,Windows_250req_psql_write,Windows_250req_psql_read)
+
+> colnames(req250)[1] <- "so"
+> colnames(req250)[2] <- "req"
+> colnames(req250)[3] <- "database"
+> colnames(req250)[4] <- "type"
+> colnames(req250)[5] <- "total_time"
+> colnames(req250)[6] <- "server_response"
+> colnames(req250)[7] <- "db_response"
+> colnames(req250)[8] <- "cpu_usage"
+
+> colnames(linux_data)[1] <- "so"
+> colnames(linux_data)[2] <- "req"
+> colnames(linux_data)[3] <- "database"
+> colnames(linux_data)[4] <- "type"
+> colnames(linux_data)[5] <- "total_time"
+> colnames(linux_data)[6] <- "server_response"
+> colnames(linux_data)[7] <- "db_response"
+> colnames(linux_data)[8] <- "cpu_usage"
+
+> colnames(windows_data)[1] <- "so"
+> colnames(windows_data)[2] <- "req"
+> colnames(windows_data)[3] <- "database"
+> colnames(windows_data)[4] <- "type"
+> colnames(windows_data)[5] <- "total_time"
+> colnames(windows_data)[6] <- "server_response"
+> colnames(windows_data)[7] <- "db_response"
+> colnames(windows_data)[8] <- "cpu_usage"
+
+> t.test(db_response ~ database, data = req10)
+
+	Welch Two Sample t-test
+
+data:  db_response by database
+t = 5.9539, df = 324.07, p-value = 6.808e-09
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ 0.02155198 0.04282326
+sample estimates:
+   mean in group mysql mean in group postgres
+            0.05260056             0.02041294
+
+> t.test(db_response ~ database, data = req250)
+
+	Welch Two Sample t-test
+
+data:  db_response by database
+t = 31.524, df = 6761.3, p-value < 2.2e-16
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ 0.02653685 0.03005604
+sample estimates:
+   mean in group mysql mean in group postgres
+            0.04518806             0.01689162
+
+> t.test(db_response ~ so, data = req250)
+
+	Welch Two Sample t-test
+
+data:  db_response by so
+t = 0.27762, df = 7381.9, p-value = 0.7813
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -0.001583655  0.002106223
+sample estimates:
+  mean in group linux mean in group windows
+           0.03117048            0.03090920
+
+ > t.test(db_response ~ so, data = req10)
+
+ 	Welch Two Sample t-test
+
+ data:  db_response by so
+ t = -0.22627, df = 347.61, p-value = 0.8211
+ alternative hypothesis: true difference in means is not equal to 0
+ 95 percent confidence interval:
+  -0.012372162  0.009819138
+ sample estimates:
+   mean in group linux mean in group windows
+            0.03586849            0.03714500
+
+  > t.test(cpu_usage ~ so, data = req10)
+
+ 	Welch Two Sample t-test
+
+ data:  cpu_usage by so
+ t = -8.8918, df = 210.64, p-value = 2.746e-16
+ alternative hypothesis: true difference in means is not equal to 0
+ 95 percent confidence interval:
+  -6.786536 -4.323464
+ sample estimates:
+   mean in group linux mean in group windows
+                0.7645                6.3195
+
+  > t.test(cpu_usage ~ so, data = req250)
+
+ 	Welch Two Sample t-test
+
+ data:  cpu_usage by so
+ t = -57.893, df = 5041.9, p-value < 2.2e-16
+ alternative hypothesis: true difference in means is not equal to 0
+ 95 percent confidence interval:
+  -9.610999 -8.981401
+ sample estimates:
+   mean in group linux mean in group windows
+               0.37364               9.66984
+
+ >
+ > t.test(total_time ~ so, data = req10)
+
+	Welch Two Sample t-test
+
+data:  total_time by so
+t = -0.56379, df = 362.44, p-value = 0.5732
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -0.014879478  0.008248771
+sample estimates:
+  mean in group linux mean in group windows
+            0.1403096             0.1436250
+
+>
+> t.test(total_time ~ so, data = req250)
+
+	Welch Two Sample t-test
+
+data:  total_time by so
+t = -2.4606, df = 7387.4, p-value = 0.01389
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -0.0042610831 -0.0004821935
+sample estimates:
+  mean in group linux mean in group windows
+            0.1339220             0.1362936
+
+>
+> t.test(server_response ~ so, data = req10)
+
+	Welch Two Sample t-test
+
+data:  server_response by so
+t = -0.27656, df = 363.37, p-value = 0.7823
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -0.013160539  0.009915323
+sample estimates:
+  mean in group linux mean in group windows
+            0.1379574             0.1395800
+
+>
+> t.test(server_response ~ so, data = req250)
+
+	Welch Two Sample t-test
+
+data:  server_response by so
+t = -0.44277, df = 7420.1, p-value = 0.6579
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ -0.002300307  0.001452635
+sample estimates:
+  mean in group linux mean in group windows
+            0.1323646             0.1327884
+
+> 
